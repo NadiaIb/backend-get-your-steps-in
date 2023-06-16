@@ -56,31 +56,42 @@ describe("/api/leaderBoard", () => {
     });
 
     describe("400", () => {
-        test("should return a bad request error if name is missing", () => {
-            return request(app)
-            .post("/api/leaderBoard")
-            .send({
-              score: 1000,
-            })
-            .expect(400)
-                .then((result) => {
-              expect(result.text).toBe( `{"msg":"Bad request"}`);
-            });
+      test("should return a bad request error if name is missing", () => {
+        return request(app)
+          .post("/api/leaderBoard")
+          .send({
+            score: 1000,
+          })
+          .expect(400)
+          .then((result) => {
+            expect(result.text).toBe(`{"msg":"Bad request"}`);
+          });
       });
 
-        test("should return a bad request if score is missing", () => {
-            return request(app)
-            .post("/api/leaderBoard")
-            .send({
-              name: "Saima"
-            })
-            .expect(400)
-                .then((result) => {
-              expect(result.text).toBe( `{"msg":"Bad request"}`);
-            });
+      test("should return a bad request if score is missing", () => {
+        return request(app)
+          .post("/api/leaderBoard")
+          .send({
+            name: "Saima",
+          })
+          .expect(400)
+          .then((result) => {
+            expect(result.text).toBe(`{"msg":"Bad request"}`);
+          });
       });
 
-      test("should return a bad request if score is not a number", () => {});
+      test("should return a bad request if score is not a number", () => {
+        return request(app)
+          .post("/api/leaderBoard")
+          .send({
+            name: "Saima",
+            score: "undefined",
+          })
+          .expect(400)
+          .then((result) => {
+            expect(result.text).toBe(`{"msg":"Bad request"}`);
+          });
+      });
     });
   });
 });
