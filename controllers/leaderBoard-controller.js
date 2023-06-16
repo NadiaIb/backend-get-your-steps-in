@@ -8,7 +8,8 @@ exports.getLeaderBoard = (req, res, next) => {
 }
 
 exports.sendScore = (req, res, next) => {
-    postScore(req.body).then((scores) => {
-        res.send({scores})
+    console.log(req)
+    postScore(req.body).then((acknowledgement) => {
+        res.status(201).send({acknowledgement})
     }).catch(err=>next(err))
 }

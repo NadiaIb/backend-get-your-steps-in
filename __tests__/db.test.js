@@ -50,10 +50,7 @@ describe("/api/leaderBoard", () => {
           })
           .expect(201)
           .then((result) => {
-            expect(result.body.scores).toEqual({
-              name: "Saima",
-              score: 1000,
-            });
+            expect(result.body.acknowledgement).toBe(true);
           });
       });
     });

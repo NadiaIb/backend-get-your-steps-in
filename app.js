@@ -1,6 +1,7 @@
 const express = require('express')
 const { getLeaderBoard, sendScore } = require('./controllers/leaderBoard-controller')
 const app = express()
+app.use(express.json())
 
 // endpoints
 app.get("/api", (req, res) => {
