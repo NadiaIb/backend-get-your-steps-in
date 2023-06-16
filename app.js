@@ -1,5 +1,6 @@
 const express = require('express')
 const { getLeaderBoard, sendScore } = require('./controllers/leaderBoard-controller')
+const leaderBoardRouter = require("./routes/leaderboard-router");
 const app = express()
 app.use(express.json())
 
@@ -8,8 +9,7 @@ app.get("/api", (req, res) => {
     res.send({msg: "api is working"})
 })
 
-app.get("/api/leaderboard", getLeaderBoard)
-app.post("/api/leaderboard", sendScore)
+app.use("/api", leaderBoardRouter)
 
 
 // error handlers  
