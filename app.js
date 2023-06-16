@@ -12,7 +12,20 @@ app.get("/api/leaderboard", getLeaderBoard)
 app.post("/api/leaderboard", sendScore)
 
 
-// error handlers
-
+// error handlers  
+app.use((err, req, res, next) => {
+    //   console.log(err)
+      if (err.status && err.msg) {
+          res.status(err.status).send({ msg: err.msg });
+      } else {
+          next(err)
+      }
+  });
+  
+  
+  app.use((err, req, res, next) => {
+      res.status(500).send({msg: 'Server error!'})
+  })
+  
 
 module.exports = app

@@ -56,7 +56,18 @@ describe("/api/leaderBoard", () => {
     });
 
     describe("400", () => {
-      test("should return a bad request error if name is missing", () => {});
+        test("should return a bad request error if name is missing", () => {
+            return request(app)
+            .post("/api/leaderBoard")
+            .send({
+              score: 1000,
+            })
+            .expect(400)
+                .then((result) => {
+                console.log(result.text)
+              expect(result.text).toBe( `{"msg":"Bad request"}`);
+            });
+      });
 
       test("should return a bad request if score is missing", () => {});
 

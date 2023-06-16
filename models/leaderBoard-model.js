@@ -11,9 +11,7 @@ exports.fetchLeaderBoard = async () => {
   return score;
 };
 
-exports.postScore = async (body) => {
-  const name = body.name
-  const score = body.score
+exports.postScore = async (name, score) => {
   const result = await leaderBoard.insertOne({name, score})
   return result.acknowledged
 }

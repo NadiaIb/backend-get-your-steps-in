@@ -8,8 +8,11 @@ exports.getLeaderBoard = (req, res, next) => {
 }
 
 exports.sendScore = (req, res, next) => {
-    console.log(req)
-    postScore(req.body).then((acknowledgement) => {
-        res.status(201).send({acknowledgement})
-    }).catch(err=>next(err))
+  const name = req.body.name
+    const score = req.body.score
+    if (name && score) {
+        postScore(name, score).then((acknowledgement) => {
+            res.status(201).send({acknowledgement})
+        }).catch(err=>next(err))
+    } else (next({status: 400, msg: "Bad request"}))
 }
