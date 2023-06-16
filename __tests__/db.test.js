@@ -64,12 +64,21 @@ describe("/api/leaderBoard", () => {
             })
             .expect(400)
                 .then((result) => {
-                console.log(result.text)
               expect(result.text).toBe( `{"msg":"Bad request"}`);
             });
       });
 
-      test("should return a bad request if score is missing", () => {});
+        test("should return a bad request if score is missing", () => {
+            return request(app)
+            .post("/api/leaderBoard")
+            .send({
+              name: "Saima"
+            })
+            .expect(400)
+                .then((result) => {
+              expect(result.text).toBe( `{"msg":"Bad request"}`);
+            });
+      });
 
       test("should return a bad request if score is not a number", () => {});
     });
