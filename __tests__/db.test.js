@@ -92,6 +92,19 @@ describe("/api/leaderBoard", () => {
             expect(result.text).toBe(`{"msg":"Bad request"}`);
           });
       });
+        
+      test("should return a bad request if name is not a string", () => {
+        return request(app)
+          .post("/api/leaderBoard")
+          .send({
+            name: 20,
+            score: 1000,
+          })
+          .expect(400)
+          .then((result) => {
+            expect(result.text).toBe(`{"msg":"Bad request"}`);
+          });
+      });
     });
   });
 });

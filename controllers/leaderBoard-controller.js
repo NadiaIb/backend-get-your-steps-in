@@ -10,7 +10,7 @@ exports.getLeaderBoard = (req, res, next) => {
 exports.sendScore = (req, res, next) => {
     const name = req.body.name
     const score = req.body.score
-    if (name && score && typeof score === "number") {
+    if (name && score && typeof score === "number" && typeof name === "string") {
         postScore(name, score).then((acknowledgement) => {
             res.status(201).send({acknowledgement})
         }).catch(err=>next(err))
