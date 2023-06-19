@@ -1,10 +1,12 @@
 const leaderBoard = require("../database/db-connection");
+const moment = require('moment')
 
 exports.fetchLeaderBoard = async () => {
   const sort = { score: -1 };
-  try {
+  const sevenDays = moment().subtract(7, 'days').toDate() 
+   try {
     const score = await leaderBoard
-      .find({})
+      .find({createdAt : { $gte: sevenDays } })
       .sort(sort)
       .toArray(function (err, result) {
         return result;
