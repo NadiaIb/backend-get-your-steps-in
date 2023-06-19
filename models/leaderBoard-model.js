@@ -36,5 +36,4 @@ exports.postScore = async (name, score, createdAt) => {
       data: null,
     };
   }
-  return result.acknowledged;
 };

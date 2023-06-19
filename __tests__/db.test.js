@@ -2,6 +2,7 @@ const request = require("supertest");
 const app = require("../app");
 const leaderBoard = require("../database/db-connection");
 
+
 beforeEach(async () => {
   await leaderBoard.deleteMany({});
   await leaderBoard.insertMany([
