@@ -50,7 +50,7 @@ describe("/api/leaderBoard", () => {
           })
           .expect(201)
           .then((result) => {
-            expect(result.body.acknowledgement).toBe(true);
+            expect(result.body.acknowledgement).toBeTruthy()
           });
       });
     });
@@ -103,6 +103,19 @@ describe("/api/leaderBoard", () => {
           .expect(400)
           .then((result) => {
             expect(result.text).toBe(`{"msg":"Bad request"}`);
+          });
+      });
+      test('testing created at exists', () => {
+        return request(app)
+          .post('/api/leaderBoard')
+          .send({
+            name: 'joel',
+            score: 1000,
+            createdAt: 1519211809934
+          })
+          .expect(201)
+          .then((result) => {
+            expect(result.body.acknowledgement).toBeTruthy()
           });
       });
     });

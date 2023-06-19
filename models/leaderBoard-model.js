@@ -11,11 +11,28 @@ exports.fetchLeaderBoard = async () => {
       });
     return score;
   } catch (err) {
-    return err
+    return err;
   }
 };
 
-exports.postScore = async (name, score) => {
-  const result = await leaderBoard.insertOne({name, score})
-  return result.acknowledged
-}
+exports.postScore = async (name, score, createdAt) => {
+  const result = await leaderBoard.insertOne({ name, score, createdAt });
+  if (result.acknowledged) {
+    const insertedData = {
+      _id: result.insertedId,
+      name: name,
+      score: score,
+      createdAt: createdAt,
+    };
+    return {
+      acknowledgedment: true,
+      data: insertedData,
+    };
+  } else {
+    return {
+      acknowledgedment: false,
+      data: null,
+    };
+  }
+  return result.acknowledged;
+};
