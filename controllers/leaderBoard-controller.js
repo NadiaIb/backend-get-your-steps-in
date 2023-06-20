@@ -1,10 +1,16 @@
-const {fetchLeaderBoard, postScore} = require("../models/leaderBoard-model")
+const {fetchLeaderBoard, postScore, fetchLastSevenDays} = require("../models/leaderBoard-model")
 
 exports.getLeaderBoard = (req, res, next) => {
     fetchLeaderBoard().then((scores) => {
         res.send({scores})
     }).catch(err=>next(err))
  
+}
+
+exports.getSevenDay = (req, res, next) => {
+    fetchLastSevenDays().then((scores) => {
+        res.send({scores});
+    }).catch(err => next(err));
 }
 
 exports.sendScore = (req, res, next) => {
