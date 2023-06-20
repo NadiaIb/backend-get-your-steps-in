@@ -17,7 +17,7 @@ exports.sendScore = (req, res, next) => {
     const name = req.body.name
     const score = req.body.score
     const createdAt = Date.now()
-    if (name && score && typeof score === "number" && typeof name === "string") {
+    if (name && score) {
         postScore(name, score, createdAt).then((acknowledgement) => {
             res.status(201).send({acknowledgement})
         }).catch(err=>next(err))
