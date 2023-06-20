@@ -1,4 +1,4 @@
-const {fetchLeaderBoard, postScore} = require("../models/leaderBoard-model")
+const {fetchLeaderBoard, postScore, fetchLastSevenDays} = require("../models/leaderBoard-model")
 
 exports.getLeaderBoard = (req, res, next) => {
     fetchLeaderBoard().then((scores) => {
@@ -7,10 +7,16 @@ exports.getLeaderBoard = (req, res, next) => {
  
 }
 
+exports.getSevenDay = (req, res, next) => {
+    fetchLastSevenDays().then((scores) => {
+        res.send({scores});
+    }).catch(err => next(err));
+}
+
 exports.sendScore = (req, res, next) => {
     const name = req.body.name
     const score = req.body.score
-    const createdAt = new Date(Date.now()).toString()
+    const createdAt = Date.now()
     if (name && score && typeof score === "number" && typeof name === "string") {
         postScore(name, score, createdAt).then((acknowledgement) => {
             res.status(201).send({acknowledgement})

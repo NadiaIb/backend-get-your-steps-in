@@ -2,12 +2,12 @@ const request = require("supertest");
 const app = require("../app");
 const leaderBoard = require("../database/db-connection");
 
-
 beforeEach(async () => {
   await leaderBoard.deleteMany({});
   await leaderBoard.insertMany([
-    { name: "John", score: 100 },
-    { name: "Jane", score: 150 },
+    { name: "John", score: 100, createdAt: 1687252634690 },
+    { name: "Jane", score: 150, createdAt: 1687252634690 },
+    { name: "Joel", score: 200, createdAt: 1672531200000 },
   ]);
 });
 
@@ -23,7 +23,8 @@ describe("/api/leaderBoard", () => {
           .get("/api/leaderBoard")
           .expect(200)
           .then((result) => {
-            expect(result.body.scores.length).toBe(2);
+            console.log(result.body);
+            expect(result.body.scores.length).toBe(3);
           });
       });
 
@@ -32,6 +33,7 @@ describe("/api/leaderBoard", () => {
           .get("/api/leaderBoard")
           .expect(200)
           .then((result) => {
+            console.log(result.body);
             expect(result.body.scores).toBeSortedBy("score", {
               descending: true,
             });
@@ -39,7 +41,6 @@ describe("/api/leaderBoard", () => {
       });
     });
   });
-
   describe("POST", () => {
     describe("201", () => {
       test("should add one document to the leaderboard", () => {
@@ -51,7 +52,7 @@ describe("/api/leaderBoard", () => {
           })
           .expect(201)
           .then((result) => {
-            expect(result.body.acknowledgement).toBeTruthy()
+            expect(result.body.acknowledgement).toBeTruthy();
           });
       });
     });
@@ -93,7 +94,7 @@ describe("/api/leaderBoard", () => {
             expect(result.text).toBe(`{"msg":"Bad request"}`);
           });
       });
-        
+
       test("should return a bad request if name is not a string", () => {
         return request(app)
           .post("/api/leaderBoard")
@@ -106,19 +107,31 @@ describe("/api/leaderBoard", () => {
             expect(result.text).toBe(`{"msg":"Bad request"}`);
           });
       });
-      test('testing created at exists', () => {
+      test("testing created at exists", () => {
         return request(app)
-          .post('/api/leaderBoard')
+          .post("/api/leaderBoard")
           .send({
-            name: 'joel',
+            name: "joel",
             score: 1000,
-            createdAt: 1519211809934
+            createdAt: 1519211809934,
           })
           .expect(201)
           .then((result) => {
-            expect(result.body.acknowledgement).toBeTruthy()
+            expect(result.body.acknowledgement).toBeTruthy();
           });
       });
     });
+  });
+});
+
+describe('/api/leaderboard/sort', () => {
+  test("sorting of last 7 days", () => {
+    return request(app)
+      .get("/api/leaderboard/sort")
+      .expect(200)
+      .then((result) => {
+        console.log(result.body);
+        expect(result.body.scores.length).toBe(2);
+      });
   });
 });
