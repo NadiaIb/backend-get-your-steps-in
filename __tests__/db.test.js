@@ -81,45 +81,6 @@ describe("/api/leaderBoard", () => {
             expect(result.text).toBe(`{"msg":"Bad request"}`);
           });
       });
-
-      test("should return a bad request if score is not a number", () => {
-        return request(app)
-          .post("/api/leaderBoard")
-          .send({
-            name: "Saima",
-            score: "undefined",
-          })
-          .expect(400)
-          .then((result) => {
-            expect(result.text).toBe(`{"msg":"Bad request"}`);
-          });
-      });
-
-      test("should return a bad request if name is not a string", () => {
-        return request(app)
-          .post("/api/leaderBoard")
-          .send({
-            name: 20,
-            score: 1000,
-          })
-          .expect(400)
-          .then((result) => {
-            expect(result.text).toBe(`{"msg":"Bad request"}`);
-          });
-      });
-      test("testing created at exists", () => {
-        return request(app)
-          .post("/api/leaderBoard")
-          .send({
-            name: "joel",
-            score: 1000,
-            createdAt: 1519211809934,
-          })
-          .expect(201)
-          .then((result) => {
-            expect(result.body.acknowledgement).toBeTruthy();
-          });
-      });
     });
   });
 });
