@@ -1,5 +1,5 @@
 const express = require('express')
-const { getLeaderBoard, sendScore } = require('./controllers/leaderBoard-controller')
+
 const leaderBoardRouter = require("./routes/leaderboard-router");
 const app = express()
 app.use(express.json())
