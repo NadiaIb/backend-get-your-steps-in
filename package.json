@@ -5,7 +5,8 @@
   "main": "listen.js",
   "scripts": {
     "test": "jest",
-    "dev": "nodemon listen.js"
+    "dev": "nodemon listen.js",
+    "start": "node listen.js"
   },
   "keywords": [],
   "author": "",
