@@ -23,7 +23,6 @@ describe("/api/leaderBoard", () => {
           .get("/api/leaderBoard")
           .expect(200)
           .then((result) => {
-            console.log(result.body);
             expect(result.body.scores.length).toBe(3);
           });
       });
@@ -33,7 +32,6 @@ describe("/api/leaderBoard", () => {
           .get("/api/leaderBoard")
           .expect(200)
           .then((result) => {
-            console.log(result.body);
             expect(result.body.scores).toBeSortedBy("score", {
               descending: true,
             });
@@ -47,7 +45,7 @@ describe("/api/leaderBoard", () => {
         return request(app)
           .post("/api/leaderBoard")
           .send({
-            name: "Saima",
+            name: "Nadia",
             score: 1000,
           })
           .expect(201)
@@ -74,7 +72,7 @@ describe("/api/leaderBoard", () => {
         return request(app)
           .post("/api/leaderBoard")
           .send({
-            name: "Saima",
+            name: "Nadia",
           })
           .expect(400)
           .then((result) => {
@@ -91,7 +89,6 @@ describe('/api/leaderboard/sort', () => {
       .get("/api/leaderboard/sort")
       .expect(200)
       .then((result) => {
-        console.log(result.body);
         expect(result.body.scores.length).toBe(2);
       });
   });

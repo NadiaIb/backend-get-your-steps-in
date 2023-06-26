@@ -10,7 +10,6 @@ exports.fetchLeaderBoard = async () => {
       .toArray(function (err, result) {
         return result;
       });
-      console.log(score)
     return score;
   } catch (err) {
     return err;
