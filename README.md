@@ -7,6 +7,8 @@ The backend for this app uses mongoDB to store data relating to users who have p
 
 The hosted version of the API as well as the endpoints available can be viewed [here](https://be-get-your-steps-in.onrender.com).
 
+Feel free to explore the front-end repo [here](https://github.com/NadiaIb/frontend-get-your-steps-in).
+
 ## Getting Started
 
 To run this project locally, you can fork this repo or clone as follows:
